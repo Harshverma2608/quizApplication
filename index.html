@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Master - Test Your Knowledge</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen">
+          <div class="welcome-content">
+            <div class="icon-wrapper">
+              <svg
+                class="quiz-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"
+                />
+              </svg>
+            </div>
+            <h1>Quiz Master</h1>
+            <p class="subtitle">Test your knowledge and challenge yourself!</p>
+            <div class="quiz-info">
+              <div class="info-item">
+                <span class="info-label">Questions:</span>
+                <span class="info-value" id="total-questions">10</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Time per question:</span>
+                <span class="info-value">30s</span>
+              </div>
+            </div>
+            <button id="start-btn" class="btn-primary">
+              <span>Start Quiz</span>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-container" class="hidden">
+          <!-- Progress Bar -->
+          <div class="progress-section">
+            <div class="progress-header">
+              <span class="question-counter">
+                Question <span id="current-question-num">1</span> of
+                <span id="total-question-num">10</span>
+              </span>
+              <div class="timer-wrapper">
+                <svg
+                  class="timer-icon"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <span id="timer">30</span>s
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+          </div>
+
+          <!-- Question Container -->
+          <div id="question-container">
+            <div class="question-card">
+              <h2 id="question-text"></h2>
+              <div id="choices-list" class="choices-grid">
+                <!-- Choices will be added dynamically here -->
+              </div>
+              <div class="feedback-message" id="feedback-message"></div>
+              <button id="next-btn" class="btn-primary hidden">
+                <span>Next Question</span>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-container" class="hidden">
+          <div class="result-card">
+            <div class="result-icon" id="result-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+              </svg>
+            </div>
+            <h2>Quiz Completed!</h2>
+            <div class="score-display">
+              <div class="score-circle">
+                <svg class="score-ring" viewBox="0 0 36 36">
+                  <circle
+                    class="score-ring-bg"
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="none"
+                    stroke="#2d3748"
+                    stroke-width="3"
+                  />
+                  <circle
+                    class="score-ring-fill"
+                    id="score-ring-fill"
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="none"
+                    stroke="url(#gradient)"
+                    stroke-width="3"
+                    stroke-dasharray="100, 100"
+                    transform="rotate(-90 18 18)"
+                  />
+                  <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#667eea" />
+                      <stop offset="100%" style="stop-color:#764ba2" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="score-text">
+                  <span id="score-percentage">0</span>%
+                </div>
+              </div>
+              <p class="score-detail" id="score-detail">0 out of 10</p>
+            </div>
+            <div class="performance-message" id="performance-message">
+              Great job!
+            </div>
+            <div class="result-stats">
+              <div class="stat-item">
+                <span class="stat-label">Correct</span>
+                <span class="stat-value correct" id="correct-count">0</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Incorrect</span>
+                <span class="stat-value incorrect" id="incorrect-count">0</span>
+              </div>
+            </div>
+            <div class="result-actions">
+              <button id="restart-btn" class="btn-primary">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="23 4 23 10 17 10" />
+                  <polyline points="1 20 1 14 7 14" />
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                </svg>
+                <span>Try Again</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
